@@ -38,12 +38,12 @@ spring:
       client:
         enabled: true
   
-  zipkin:
-    enabled: true
-    sender:
-      type: kafka
-    kafka:
-      topic: zipkin
+#  zipkin:
+#    enabled: true
+#    sender:
+#      type: kafka
+#    kafka:
+#      topic: zipkin
 
 management:
   endpoints:
@@ -53,6 +53,15 @@ management:
   endpoint:
     health:
       show-details: always
+      
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+  
+  zipkin:
+    tracing:
+      endpoint: http://zipkin:9411/api/v2/spans
 
 eureka:
   client:
@@ -64,7 +73,7 @@ eureka:
 resilience4j:
   circuitbreaker:
     configs:
-      defecto:
+      product:
         sliding-window-size: 6
         failure-rate-threshold: 50
         wait-duration-in-open-state: 20s
@@ -73,17 +82,17 @@ resilience4j:
         slow-call-duration-threshold: 2s
     instances:
       product:
-        base-config: defecto
+        base-config: product
   timelimiter:
     configs:
-      defecto:
+      product:
         timeout-duration: 2s
     instances:
       product:
-        base-config: defecto
+        base-config: product
         
 configuration:
     texto: Configurando entorno Docker ...
     autor:
-        nombre: Jose Perez
-        email: joseperez@email.com
+        nombre: John Doe
+        email: johndoe@email.com
